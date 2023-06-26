@@ -4,6 +4,7 @@ import os
 import streamlit as st 
 import plotly.graph_objects as go
 import pandas as pd
+import numpy as np
 
 ### * -- Set page config
 # emoji: https://streamlit-emoji-shortcodes-streamlit-app-gwckff.streamlit.app/
@@ -41,16 +42,16 @@ font_style = """
 st.markdown(font_style, unsafe_allow_html=True)
 border = '<hr style="border-top: 5px double green; margin-top:0px; margin-bottom:30px; border-radius: 10px">'
 border1= '<hr style="border-top: 1px solid green; margin-top:30px; margin-bottom:30px; border-radius: 10px">'
-h2 = '## ';  h3 = '### ';  h4 = '#### ';  h5 = '##### ';  h6 = '###### ';
+h2 = '## ';  h3 = '### ';  h4 = '#### ';  h5 = '##### ';  h6 = '###### '
 s1 = h5+'$\quad$';  s2 = h5+'$\qquad$';  s3 = h5+'$\quad \qquad$'  #s12 = '$\enspace$'
 
 ##### sidebar =======================================================================================================
 st.sidebar.write(h2, ':blue[거푸집용 합판]')
 [col1, col2] = st.sidebar.columns([1,1], gap = "small")
 with col1:
-    mt = st.radio(h4+':green[합판 두께 [mm]]', (12, 15, 18), horizontal=True)
+    wt = st.radio(h4+':green[합판 두께 [mm]]', (12, 15, 18), horizontal=True)
 with col2:
-    mload = st.radio(h4+':green[하중 방향 [각도]]', (0, 90), horizontal=True)
+    wangle = st.radio(h4+':green[하중 방향 [각도]]', (0, 90), horizontal=True)
 
 st.sidebar.write(h2, ':blue[장선]')
 js = st.sidebar.radio(h4+':green[장선 종류]', ('목재', '각형강관', '원형강관'), horizontal=True)
@@ -115,62 +116,50 @@ with tab[0]:
 # import re
 # pattern = r"\d+\.?\d*" #정수 : r'\d+'
 # jj = re.findall(pattern, jw)
+if '목재' in js:
+    joist = [js, str(round(jw))+'Ⅹ'+str(round(jh)), jw*jh]
+
+joist
 
 df = pd.DataFrame({
-    "<br><b>제원": js,
-    "<br><b>단면": ["A", "B", "C", "D", "E"],
-    "<b> 단면적<br>A [mm²]": [1.1, 2.2, 3.3, 4.4, 5.5],
-    "<b>단면계수<br>S [mm³]": js,
-    "<b>단면2차모멘트<br>    I [mm⁴]": js,
-    "<b>탄성계수<br> E [MPa]": js,
-    "<b>허용휨응력<br>  <i>f<sub>b</sub></i> [MPa]": js,
-    "<b>허용전단응력<br>   <i>f<sub>s</sub></i> [MPa]": js,
+    "<br><b>형상": ['<b>'+joist[0]],
+    "<br><b>단면": '<b>'+joist[1],
+    "<b> 단면적<br>A [mm²]": '<b>'+str(joist[2]),
+    "<b>단면계수<br>S [mm³]": '<b>'+str(11),
+    "<b>단면2차모멘트<br>    I [mm⁴]": '<b>',
+    "<b>탄성계수<br> E [MPa]": '<b>',
+    "<b>허용휨응력<br>  <i>f<sub>b</sub></i> [MPa]": '<b>',
+    "<b>허용전단응력<br>   <i>f<sub>s</sub></i> [MPa]": '<b>',
 })
-df
-
-# df = pd.DataFrame({
-#     '번호': [1, 2, 3, 4],
-#     '이름': ["H" + "\u2088" + "O", "CO" + "\u03be", '24kN/㎥', '박민지'],
-#     '나이': [27.1, 54.5, 22.2, 36.9],
-#     '성별': ['남', '남', '여', '여α']
-# })
 
 fig = go.Figure(data=[go.Table(
     # columnorder=[1,2,3],
-    columnwidth=[1, 1, 1],
+    # columnwidth=[1, 1, 1],    
     header=dict(
         values=list(df.columns),
-        align=['center']*10,
+        align=['center'],
         height=10,
         font=dict(size=16, color='black', family=f1),  # 글꼴 변경
-        fill_color='white',
+        fill_color=['silver'],  #'darkgray'
+        line=dict(color='black', width=[1]),   # 셀 경계색, 두께
     ),
     cells=dict(
         values=[df[col] for col in df.columns],
-        align=['center','left']*5,
+        align=['center']*1,
         height=25,
-        font=dict(size=16, color='yellow', family=f1),  # 글꼴 변경
-        fill=dict(color=['red', 'green','blue']),  # 셀 배경색 변경
-        # line_color="black",  # 셀 경계색 변경
-        # line_width=[2, 5],  # 셀 경계선 두께 변경
-        format=[None, None, '.2f', None]  # '나이' 열의 데이터를 실수 형태로 변환하여 출력
-    )
+        prefix=None,
+        suffix=None,
+        font=dict(size=16, color='black', family=f1),  # 글꼴 변경
+        fill=dict(color=['white', 'white']),  # 셀 배경색 변경
+        line=dict(color='black', width=[1]),   # 셀 경계색, 두께
+        format=[None, None]  # '나이' 열의 데이터를 실수 형태로 변환하여 출력  '.2f'
+    ),
 )],
-        layout=go.Layout(
-            xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-            yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-            autosize=True,
-        )
 )
 
-fig.update_layout(
-    margin=dict(l=0, r=0, t=0, b=0),  # 테이블 여백 제거
-)
-
-# 표의 크기 지정
-fig.update_layout(width=1000, height=400)
+fig.update_layout(width=800, height=400, margin=dict(l=40, r=0, t=0, b=0), showlegend=True)  # 테이블 여백 제거  # 표의 크기 지정
 st.plotly_chart(fig)
-# fig.show(config={'plotly.markdown': True})
+
 
 import plotly.graph_objects as go
 
@@ -191,10 +180,9 @@ fig = go.Figure(data=[go.Table(
                 font=dict(size=16),
                 align='center'),
     cells=dict(values=list(map(list, zip(*formatted_data))),
-               font=dict(size=14),
-               align='center'))
+                font=dict(size=14),
+                align='center'))
 ])
 st.plotly_chart(fig)
-
 
 
