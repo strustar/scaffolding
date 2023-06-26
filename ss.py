@@ -116,25 +116,35 @@ with tab[0]:
 # import re
 # pattern = r"\d+\.?\d*" #정수 : r'\d+'
 # jj = re.findall(pattern, jw)
-if '목재' in js:
-    joist = [js, str(round(jw))+'Ⅹ'+str(round(jh)), jw*jh]
+# if '목재' in js:
+section = str(round(jw))+'×'+str(round(jh))
+A = jw*jh;  S = jw*jh**2/6;  I = jw*jh**3/12
+E = 11000;  fs = 0.78    
+fb = 10.6 if jh >= 120 else 13
 
-joist
+
+if '각형' in js:
+    section = str(round(jw))+'×'+str(round(jh))+'×'+str(round(jt,1))+'t'
+    A = jw*jh - (jw-2*jt)*(jh-2*jt)
+    
+
+joist = [js, section, A, S, I, E, fb, fs]
+# joist
 
 df = pd.DataFrame({
     "<br><b>형상": ['<b>'+joist[0]],
     "<br><b>단면": '<b>'+joist[1],
-    "<b> 단면적<br>A [mm²]": '<b>'+str(joist[2]),
-    "<b>단면계수<br>S [mm³]": '<b>'+str(11),
-    "<b>단면2차모멘트<br>    I [mm⁴]": '<b>',
-    "<b>탄성계수<br> E [MPa]": '<b>',
-    "<b>허용휨응력<br>  <i>f<sub>b</sub></i> [MPa]": '<b>',
-    "<b>허용전단응력<br>   <i>f<sub>s</sub></i> [MPa]": '<b>',
+    "<b> 단면적<br>A [mm²]": '<b>'+str(round(joist[2])),
+    "<b>단면계수<br>S [mm³]": '<b>'+str(round(joist[3]/1e3,1))+'×10³',
+    "<b>단면2차모멘트<br>    I [mm⁴]": '<b>'+str(round(joist[4]/1e3,1))+'×10³',
+    "<b>탄성계수<br> E [MPa]": '<b>'+str(round(joist[5])),
+    "<b>허용휨응력<br>  <i>f<sub>b</sub></i> [MPa]": '<b>'+str(round(joist[6],1)),
+    "<b>허용전단응력<br>   <i>f<sub>s</sub></i> [MPa]": '<b>'+str(round(joist[7],2)),
 })
 
 fig = go.Figure(data=[go.Table(
     # columnorder=[1,2,3],
-    # columnwidth=[1, 1, 1],    
+    # columnwidth=[1, 1, 1, 1, 1.3, 1, 1, 1.3],
     header=dict(
         values=list(df.columns),
         align=['center'],
@@ -157,7 +167,7 @@ fig = go.Figure(data=[go.Table(
 )],
 )
 
-fig.update_layout(width=800, height=400, margin=dict(l=40, r=0, t=0, b=0), showlegend=True)  # 테이블 여백 제거  # 표의 크기 지정
+fig.update_layout(width=1000, height=400, margin=dict(l=40, r=0, t=0, b=0), showlegend=True)  # 테이블 여백 제거  # 표의 크기 지정
 st.plotly_chart(fig)
 
 
