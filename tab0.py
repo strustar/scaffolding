@@ -37,24 +37,25 @@ def Tab(In, color, fn, s1, s2, s3, h4, h5):
     st.markdown(border2, unsafe_allow_html=True)
     st.write(h4, '3. 사용재료')
     st.write(h5, ':orange[<근거 : 2.2 거푸집 널 & 2.3 장선 및 멍에 (KDS 21 50 00 :2022)>]')
+    st.info('**<근거 : 2.2 거푸집 널 & 2.3 장선 및 멍에 (KDS 21 50 00 :2022)>]**')
 
     st.write(s1, '1) 거푸집 널')
     section = str(round(w_t));  A = w_t*1
     E = 11e3;  fba = 16.8;  fsa = 0.63
     if w_t == 12:
-        if w_angle == 0:  I = 90;  S =13
-        if w_angle ==90:  I = 20;  S = 6
+        if w_angle == 0:  I = 90;  S =13;  Ib_Q = 10
+        if w_angle ==90:  I = 20;  S = 6;  Ib_Q = 5.1
     if w_t == 15:
-        if w_angle == 0:  I =160;  S =18
-        if w_angle ==90:  I = 40;  S = 8
+        if w_angle == 0:  I =160;  S =18;  Ib_Q = 11.5
+        if w_angle ==90:  I = 40;  S = 8;  Ib_Q = 6
     if w_t == 18:
-        if w_angle == 0:  I =250;  S =23
-        if w_angle ==90:  I =100;  S =13
+        if w_angle == 0:  I =250;  S =23;  Ib_Q = 14.8
+        if w_angle ==90:  I =100;  S =13;  Ib_Q = 8
     section = str(w_t)+' / '+str(w_angle)+'°'
-    table.T1(fn, w_s, section, A, I, S, E, fba, fsa)
+    table.Info(fn, w_s, section, A, I, S, E, fba, fsa)
     class Wood:
         pass
-    [Wood.A, Wood.I, Wood.S, Wood.E, Wood.fba, Wood.fsa] = [A, I, S, E, fba, fsa]
+    [Wood.A, Wood.I, Wood.S, Wood.E, Wood.fba, Wood.fsa, Wood.Ib_Q] = [A, I, S, E, fba, fsa, Ib_Q]
 
     
     st.write(s1, '2) 장선')
@@ -77,7 +78,7 @@ def Tab(In, color, fn, s1, s2, s3, h4, h5):
         I = np.pi*(d**4-d1**4)/64
         S = I/(j_d[0]/2)
         E = 200e3;  fba = 240;  fsa = 95
-    table.T1(fn, j_s[0], section, A, I, S, E, fba, fsa)
+    table.Info(fn, j_s[0], section, A, I, S, E, fba, fsa)
     class Joist:
         pass
     [Joist.A, Joist.I, Joist.S, Joist.E, Joist.fba, Joist.fsa] = [A, I, S, E, fba, fsa]
@@ -103,7 +104,7 @@ def Tab(In, color, fn, s1, s2, s3, h4, h5):
         I = np.pi*(d**4-d1**4)/64
         S = I/(j_d[1]/2)
         E = 200e3;  fba = 240;  fsa = 95
-    table.T1(fn, j_s[1], section, A, I, S, E, fba, fsa)
+    table.Info(fn, j_s[1], section, A, I, S, E, fba, fsa)
     class Yoke:
         pass
     [Yoke.A, Yoke.I, Yoke.S, Yoke.E, Yoke.fba, Yoke.fsa] = [A, I, S, E, fba, fsa]

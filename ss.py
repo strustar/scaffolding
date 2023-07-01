@@ -1,14 +1,7 @@
 # import openpyxl as ox
 # import xlwings as xw
-import os
 import streamlit as st 
-import plotly.graph_objects as go
-import pandas as pd
-import numpy as np
-
-import sidebar
-import tab0, tab1
-
+import sidebar, tab0, tab1
 
 ### * -- Set page config
 # emoji: https://streamlit-emoji-shortcodes-streamlit-app-gwckff.streamlit.app/
@@ -46,19 +39,19 @@ font_style = """
 st.markdown(font_style, unsafe_allow_html=True)
 
 h2 = '## ';  h3 = '### ';  h4 = '#### ';  h5 = '##### ';  h6 = '###### '
-s1 = h5+'$\quad$';  s2 = h5+'$\qquad$';  s3 = h5+'$\quad \qquad$'  #s12 = '$\enspace$'  공백 : \,\:\;
+s1 = h5+'$\quad$';  s2 = h5+'$\qquad$';  s3 = h5+'$\quad \qquad$'  #s12 = '$\enspace$'  공백 : \,\:\;  # ⁰¹²³⁴⁵⁶⁷⁸⁹  ₀₁₂₃₄₅₆₇₈₉
 
 In = sidebar.Sidebar(h2, h4)
-# ⁰¹²³⁴⁵⁶⁷⁸⁹  ₀₁₂₃₄₅₆₇₈₉
 ##### tab ===========================================================================================================
 tab = st.tabs([ h4+':green[Ⅰ. 설계조건 📝✍️]', h4+':blue[Ⅱ. 단면제원 검토 💻⭕]', h4+':orange[Ⅲ. 시스템 서포터 검토 🏛️🏗️]', h4+':green[Ⅳ. 구조검토 결과 🎯✅ ]' ])
 with tab[1]:
     [Wood, Joist, Yoke] = tab0.Tab(In, 'green', fn1, s1, s2, s3, h4, h5)
     # Wood, Joist, Yoke
 
-
 with tab[0]:
     tab1.Tab(In, 'blue', fn1, s1, s2, s3, h4, h5, Wood, Joist, Yoke)
     
 # st.plotly_chart(fig)
-
+# import re
+# pattern = r"\d+\.?\d*" #정수 : r'\d+'
+# jj = re.findall(pattern, jw)
