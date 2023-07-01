@@ -46,20 +46,19 @@ font_style = """
 st.markdown(font_style, unsafe_allow_html=True)
 
 h2 = '## ';  h3 = '### ';  h4 = '#### ';  h5 = '##### ';  h6 = '###### '
-s1 = h5+'$\quad$';  s2 = h5+'$\qquad$';  s3 = h5+'$\quad \qquad$'  #s12 = '$\enspace$'
+s1 = h5+'$\quad$';  s2 = h5+'$\qquad$';  s3 = h5+'$\quad \qquad$'  #s12 = '$\enspace$'  공백 : \,\:\;
 
 In = sidebar.Sidebar(h2, h4)
 # ⁰¹²³⁴⁵⁶⁷⁸⁹  ₀₁₂₃₄₅₆₇₈₉
 ##### tab ===========================================================================================================
 tab = st.tabs([ h4+':green[Ⅰ. 설계조건 📝✍️]', h4+':blue[Ⅱ. 단면제원 검토 💻⭕]', h4+':orange[Ⅲ. 시스템 서포터 검토 🏛️🏗️]', h4+':green[Ⅳ. 구조검토 결과 🎯✅ ]' ])
-with tab[0]:
+with tab[1]:
     [Wood, Joist, Yoke] = tab0.Tab(In, 'green', fn1, s1, s2, s3, h4, h5)
     # Wood, Joist, Yoke
 
 
-with tab[1]:
-    pass
-    tab1.Tab(In, 'blue', fn1, s1, s2, s3, h4, h5)
+with tab[0]:
+    tab1.Tab(In, 'blue', fn1, s1, s2, s3, h4, h5, Wood, Joist, Yoke)
     
 # st.plotly_chart(fig)
 

@@ -40,7 +40,7 @@ def Tab(In, color, fn, s1, s2, s3, h4, h5):
 
     st.write(s1, '1) 거푸집 널')
     section = str(round(w_t));  A = w_t*1
-    E = 11e3;  fb = 16.8;  fs = 0.63
+    E = 11e3;  fba = 16.8;  fsa = 0.63
     if w_t == 12:
         if w_angle == 0:  I = 90;  S =13
         if w_angle ==90:  I = 20;  S = 6
@@ -51,61 +51,61 @@ def Tab(In, color, fn, s1, s2, s3, h4, h5):
         if w_angle == 0:  I =250;  S =23
         if w_angle ==90:  I =100;  S =13
     section = str(w_t)+' / '+str(w_angle)+'°'
-    table.T1(fn, w_s, section, A, I, S, E, fb, fs)
+    table.T1(fn, w_s, section, A, I, S, E, fba, fsa)
     class Wood:
         pass
-    [Wood.A, Wood.I, Wood.S, Wood.E, Wood.fb, Wood.fs] = [A, I, S, E, fb, fs]
+    [Wood.A, Wood.I, Wood.S, Wood.E, Wood.fba, Wood.fsa] = [A, I, S, E, fba, fsa]
 
     
     st.write(s1, '2) 장선')
     if '목재' in j_s[0]:
         section = str(round(j_b[0]))+'×'+str(round(j_h[0]))
         A = j_b[0]*j_h[0];  I = j_b[0]*j_h[0]**3/12;  S = I/(j_h[0]/2)
-        E = 11e3;  fs = 0.78    
-        fb = 10.6 if j_h[0] >= 120 else 13
+        E = 11e3;  fsa = 0.78    
+        fba = 10.6 if j_h[0] >= 120 else 13
     if '각형' in j_s[0]:
         section = str(round(j_b[0]))+'×'+str(round(j_h[0]))+'×'+str(round(j_t[0],1))+'t'
         b = j_b[0];  h = j_h[0];  b1 = (j_b[0]-2*j_t[0]);  h1 = (j_h[0]-2*j_t[0])
         A = b*h - b1*h1
         I = b*h**3/12 - b1*h1**3/12
         S = I/(j_h[0]/2)
-        E = 200.e3;  fb = 160;  fs = 95.
+        E = 200.e3;  fba = 160;  fsa = 95.
     if '원형' in j_s[0]:
         section = '𝜙'+str(round(j_d[0],1))+'×'+str(round(j_t[0],1))+'t'
         d = j_d[0];  d1 = (j_d[0]-2*j_t[0])
         A = np.pi*(d**2-d1**2)/4
         I = np.pi*(d**4-d1**4)/64
         S = I/(j_d[0]/2)
-        E = 200e3;  fb = 240;  fs = 95
-    table.T1(fn, j_s[0], section, A, I, S, E, fb, fs)
+        E = 200e3;  fba = 240;  fsa = 95
+    table.T1(fn, j_s[0], section, A, I, S, E, fba, fsa)
     class Joist:
         pass
-    [Joist.A, Joist.I, Joist.S, Joist.E, Joist.fb, Joist.fs] = [A, I, S, E, fb, fs]
+    [Joist.A, Joist.I, Joist.S, Joist.E, Joist.fba, Joist.fsa] = [A, I, S, E, fba, fsa]
 
     
     st.write(s1, '3) 멍에')
     if '목재' in j_s[1]:
         section = str(round(j_b[1]))+'×'+str(round(j_h[1]))
         A = j_b[1]*j_h[1];  I = j_b[1]*j_h[1]**3/12;  S = I/(j_h[1]/2)
-        E = 11e3;  fs = 0.78
-        fb = 10.6 if j_h[1] >= 120 else 13
+        E = 11e3;  fsa = 0.78
+        fba = 10.6 if j_h[1] >= 120 else 13
     if '각형' in j_s[1]:
         section = str(round(j_b[1]))+'×'+str(round(j_h[1]))+'×'+str(round(j_t[1],1))+'t'
         b = j_b[1];  h = j_h[1];  b1 = (j_b[1]-2*j_t[1]);  h1 = (j_h[1]-2*j_t[1])
         A = b*h - b1*h1
         I = b*h**3/12 - b1*h1**3/12
         S = I/(j_h[1]/2)
-        E = 200e3;  fb = 160;  fs = 95
+        E = 200e3;  fba = 160;  fsa = 95
     if '원형' in j_s[1]:
         section = '𝜙'+str(round(j_d[1],1))+'×'+str(round(j_t[1],1))+'t'
         d = j_d[1];  d1 = (j_d[1]-2*j_t[1])
         A = np.pi*(d**2-d1**2)/4
         I = np.pi*(d**4-d1**4)/64
         S = I/(j_d[1]/2)
-        E = 200e3;  fb = 240;  fs = 95
-    table.T1(fn, j_s[1], section, A, I, S, E, fb, fs)
+        E = 200e3;  fba = 240;  fsa = 95
+    table.T1(fn, j_s[1], section, A, I, S, E, fba, fsa)
     class Yoke:
         pass
-    [Yoke.A, Yoke.I, Yoke.S, Yoke.E, Yoke.fb, Yoke.fs] = [A, I, S, E, fb, fs]
+    [Yoke.A, Yoke.I, Yoke.S, Yoke.E, Yoke.fba, Yoke.fsa] = [A, I, S, E, fba, fsa]
 
     return Wood, Joist, Yoke

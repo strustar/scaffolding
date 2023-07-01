@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import pandas as pd
 # import numpy as np
 
-def T2(fn, s_t, s_weight, w_weight):
+def Load(fn, s_t, s_weight, w_weight):
     headers = [
         "<b>구분",
         "<b>하중 [N/mm²]",
@@ -50,13 +50,13 @@ def T2(fn, s_t, s_weight, w_weight):
             format=[None, None]  # '나이' 열의 데이터를 실수 형태로 변환하여 출력  '.2f'
         ),
     )],
-    )
-    
-    fig.update_layout(width=1000, height=183, margin=dict(l=40, r=0, t=0, b=0))  # 테이블 여백 제거  # 표의 크기 지정
+    )    
+    fig.update_layout(width=1000, height=190, margin=dict(l=40, r=0, t=1, b=0))  # 테이블 여백 제거  # 표의 크기 지정
     st.plotly_chart(fig)
+    return t_load
 
 
-def T1(fn, shape, section, A, I, S, E, fb, fs):
+def T1(fn, shape, section, A, I, S, E, fba, fsa):
     headers = [
         "<b>재료<br>형상",
         "<b>두께 / 하중방향<br>      [mm / °]",
@@ -64,8 +64,8 @@ def T1(fn, shape, section, A, I, S, E, fb, fs):
         "<b>단면2차모멘트<br>    I [mm⁴]",
         "<b>단면계수<br>S [mm³]",
         "<b>탄성계수<br> E [GPa]",
-        "<b>허용휨응력<br>  <i>f<sub>b</sub></i> [MPa]",
-        "<b>허용전단응력<br>   <i>f<sub>s</sub></i> [MPa]",
+        "<b>허용휨응력<br>  <i>f<sub>ba</sub></i> [MPa]",
+        "<b>허용전단응력<br>   <i>f<sub>sa</sub></i> [MPa]",
         ]
     if '합판' not in shape:
         headers[1] = "<b> 단면<br>[mm]"
@@ -76,13 +76,13 @@ def T1(fn, shape, section, A, I, S, E, fb, fs):
         '<b>'+str(round(I,1)),
         '<b>'+str(round(S,1)),
         '<b>'+str(round(E/1e3)),
-        '<b>'+'<b>'+"{:.1f}".format(fb),
-        '<b>'+"{:.2f}".format(fs),
+        '<b>'+'<b>'+"{:.1f}".format(fba),
+        '<b>'+"{:.2f}".format(fsa),
         ]
     if '합판' not in shape:
         data[3] = '<b>'+str(round(I/1e3,1))+'×10³'
         data[4] = '<b>'+str(round(S/1e3,1))+'×10³'
-        data[7] = '<b>'+"{:.1f}".format(fs)
+        data[7] = '<b>'+"{:.1f}".format(fsa)
     data_dict = {header: [value] for header, value in zip(headers, data)}  # 행이 한개 일때    
     df = pd.DataFrame(data_dict)
 
@@ -110,8 +110,7 @@ def T1(fn, shape, section, A, I, S, E, fb, fs):
             format=[None, None]  # '나이' 열의 데이터를 실수 형태로 변환하여 출력  '.2f'
         ),
     )],
-    )
-    
-    fig.update_layout(width=1000, height=100, margin=dict(l=40, r=0, t=0, b=0))  # 테이블 여백 제거  # 표의 크기 지정
+    )    
+    fig.update_layout(width=1000, height=100, margin=dict(l=40, r=0, t=1, b=0))  # 테이블 여백 제거  # 표의 크기 지정
     st.plotly_chart(fig)
 

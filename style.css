@@ -1,0 +1,16 @@
+/* style.css */
+/* body {
+    background-color: #c21633;
+}
+
+h1 {
+    color: #49149e;
+} */
+
+/* body {
+    background-color: rgb(180, 107, 22);
+  } */
+  
+  div[data-testid="stHorizontalBlock"] > div:first-of-type {
+    background-color: rgb(30, 0, 255);
+  }
