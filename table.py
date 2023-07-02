@@ -16,10 +16,10 @@ def Load(fn, s_t, s_weight, w_weight):
     t_load = s_load + w_load + live_load
 
     data = [
-    ['<b>콘크리트 자중', '<b>{:.4f}'.format(s_load/1e3), '<b>{:.2f}'.format(s_load), '<b>{:.1f}'.format(s_weight) + 'kN/m³ × ' + '{:.3f}'.format(s_t/1e3) + 'm = {:.2f}'.format(s_load) + 'kN/m²'],
-    ['<b>거푸집 자중', '<b>{:.4f}'.format(w_load/1e3), '<b>{:.2f}'.format(w_load), '<b>최소 0.4kN/m² (1.6.2 연직하중)'],
-    ['<b>작업하중 (활하중)', '<b>{:.4f}'.format(live_load/1e3), '<b>{:.2f}'.format(live_load), '<b>*최소 2.5kN/m² (1.6.2 연직하중)'],
-    ['<b>∑ (합계)', '<b>{:.4f}'.format(t_load/1e3), '<b>{:.2f}'.format(t_load), '<b>최소 5.0kN/m² (1.6.2 연직하중)'],
+    ['<b>콘크리트 자중', '<b>{:.4f}'.format(s_load/1e3), '<b>{:.2f}'.format(s_load), '<b>{:.1f}'.format(s_weight) + ' kN/m³ × ' + '{:.3f}'.format(s_t/1e3) + ' m = {:.2f}'.format(s_load) + ' kN/m²'],
+    ['<b>거푸집 자중', '<b>{:.4f}'.format(w_load/1e3), '<b>{:.2f}'.format(w_load), '<b>최소 0.4 kN/m² (1.6.2 연직하중)'],
+    ['<b>작업하중 (활하중)', '<b>{:.4f}'.format(live_load/1e3), '<b>{:.2f}'.format(live_load), '<b>*최소 2.5 kN/m² (1.6.2 연직하중)'],
+    ['<b>∑ (합계)', '<b>{:.4f}'.format(t_load/1e3), '<b>{:.2f}'.format(t_load), '<b>최소 5.0 kN/m² (1.6.2 연직하중)'],
     ]
 
     data_dict = {header: values for header, values in zip(headers, zip(*data))}  # 행이 여러개(2개 이상) 일때
@@ -64,7 +64,7 @@ def Info(fn, shape, section, A, I, S, E, fba, fsa):
         "<b>단면2차모멘트<br>    I [mm⁴]",
         "<b>단면계수<br>S [mm³]",
         "<b>탄성계수<br> E [GPa]",
-        "<b>허용휨응력<br>  <i>f<sub>ba</sub></i> [MPa]",
+        "<b>허용휨응력<br>  <i>f<sub>ba</sub></i> [MPa]",        
         "<b>허용전단응력<br>   <i>f<sub>sa</sub></i> [MPa]",
         ]
     if '합판' not in shape:

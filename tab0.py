@@ -4,7 +4,7 @@ import table
 
 def Tab(In, color, fn, s1, s2, s3, h4, h5):
     border1 = '<hr style="border-top: 5px double ' + color + '; margin-top: 0px; margin-bottom:30px; border-radius: 10px">'
-    border2 = '<hr style="border-top: 1px solid '  + color + '; margin-top:30px; margin-bottom:30px; border-radius: 10px">'
+    border2 = '<hr style="border-top: 2px solid '  + color + '; margin-top:30px; margin-bottom:30px; border-radius: 10px">'
     [s_h, s_t, s_weight, w_weight, w_s, w_t, w_angle] = [In.s_h, In.s_t, In.s_weight, In.w_weight, In.w_s, In.w_t, In.w_angle]
     [j_s, j_b, j_h, j_d, j_t] = [In.j_s, In.j_b, In.j_h, In.j_d, In.j_t]
 
@@ -37,7 +37,7 @@ def Tab(In, color, fn, s1, s2, s3, h4, h5):
     st.markdown(border2, unsafe_allow_html=True)
     st.write(h4, '3. 사용재료')
     st.write(h5, ':orange[<근거 : 2.2 거푸집 널 & 2.3 장선 및 멍에 (KDS 21 50 00 :2022)>]')
-    st.info('**<근거 : 2.2 거푸집 널 & 2.3 장선 및 멍에 (KDS 21 50 00 :2022)>]**')
+    # st.info('**<근거 : 2.2 거푸집 널 & 2.3 장선 및 멍에 (KDS 21 50 00 :2022)>]**')
 
     st.write(s1, '1) 거푸집 널')
     section = str(round(w_t));  A = w_t*1
@@ -109,4 +109,5 @@ def Tab(In, color, fn, s1, s2, s3, h4, h5):
         pass
     [Yoke.A, Yoke.I, Yoke.S, Yoke.E, Yoke.fba, Yoke.fsa] = [A, I, S, E, fba, fsa]
 
+    st.markdown(border2, unsafe_allow_html=True)
     return Wood, Joist, Yoke
